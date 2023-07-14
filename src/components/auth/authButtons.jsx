@@ -1,11 +1,11 @@
 import { View } from "react-native";
-import AuthMainBtn from "../../components/ui/AuthMainBtn";
+import MainBtn from "../ui/MainBtn";
 import AuthSecondaryBtn from "../ui/AuthSecondaryBtn";
 
 export default function AuthButtons({ modeIsLogin, onSubmit, onMove }) {
 	return (
 		<View style={modeIsLogin ? { paddingBottom: 144 } : { paddingBottom: 78 }}>
-			<AuthMainBtn
+			<MainBtn
 				title={modeIsLogin ? "Увійти" : "Зареєстуватися"}
 				onPress={onSubmit}
 			/>

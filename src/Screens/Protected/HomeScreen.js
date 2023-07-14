@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
 		borderTopWidth: 1,
 		borderTopColor: COLORS.inactive,
 	},
-	newBtn: {
+  newBtn: {
+    flexShrink:0,
 		alignItems: "center",
 		justifyContent: "center",
 		backgroundColor: COLORS.accent,

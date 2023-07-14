@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
 	View,
 	Text,
+	Pressable,
 	StyleSheet,
 	Keyboard,
 	KeyboardAvoidingView,
@@ -9,13 +10,43 @@ import {
 	Platform,
 	TextInput,
 } from "react-native";
+import { Camera } from "expo-camera";
+import * as MediaLibrary from "expo-media-library";
+
+import MainBtn from "../../components/ui/MainBtn";
+import CameraBtn from "../../components/ui/CameraBtn";
+import TrashBtn from "../../components/ui/TrashBtn";
 import { COLORS } from "../../common/constants";
-import IconButton from "../../components/ui/IconButton";
-import AuthMainBtn from "../../components/ui/AuthMainBtn";
-import AuthContent from "../../components/auth/AuthContent";
 
 export default function CreatePostsScreen({ navigation }) {
 	const [kbdStatus, setKbdStatus] = useState(false);
+	const [cameraDark, setCameraDark] = useState("true");
+
+	const [hasPermission, setHasPermission] = useState(null);
+	const [cameraRef, setCameraRef] = useState(null);
+	const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+
+  useEffect(() => {
+		(async () => {
+			const { status } = await Camera.requestCameraPermissionsAsync();
+			await MediaLibrary.requestPermissionsAsync();
+
+			setHasPermission(status === "granted");
+		})();
+	}, []);
+
+  
+	if (hasPermission === null) {
+		return <View />;
+	}
+	if (hasPermission === false) {
+		return <Text>No access to camera</Text>;
+  }
+
+	function onPress() {
+		//TODO:
+		console.log("Pressed!");
+	}
 
 	return (
 		<View style={styles.container}>
@@ -23,9 +54,7 @@ export default function CreatePostsScreen({ navigation }) {
 				<KeyboardAvoidingView behavior={Platform.OS === "ios" && "padding"}>
 					{!kbdStatus && (
 						<View style={styles.photo}>
-							<View style={styles.cameraBtnContainer}>
-								<IconButton name="camera" size={24} color={COLORS.inactive} />
-							</View>
+							<CameraBtn dark={cameraDark} onPress={onPress} />
 						</View>
 					)}
 					<Text style={styles.text}>Завантажте фото</Text>
@@ -41,9 +70,9 @@ export default function CreatePostsScreen({ navigation }) {
 					/>
 				</KeyboardAvoidingView>
 			</TouchableWithoutFeedback>
-			<AuthMainBtn title={"Опубліковати"} />
-			<View style={styles.btn}>
-				<IconButton icon="trash-2" size={24} color={COLORS.inactive} />
+			<MainBtn title={"Опубліковати"} />
+			<View style={styles.positionTrash}>
+				<TrashBtn active={false} onPress={onPress} />
 			</View>
 		</View>
 	);
@@ -66,14 +95,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 	},
-	cameraBtnContainer: {
-		width: 60,
-		height: 60,
-		backgroundColor: COLORS.mainBkg,
-		justifyContent: "center",
-		alignItems: "center",
-		borderRadius: 30,
-	},
+
 	text: {
 		marginTop: 8,
 		fontSize: 16,
@@ -91,17 +113,12 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		borderBottomColor: COLORS.borderGray,
 	},
-	btn: {
+
+	positionTrash: {
 		position: "absolute",
 		right: "50%",
 		transform: [{ translateX: 20 }],
 		bottom: 14,
 		marginBottom: 34,
-		borderRadius: 20,
-		backgroundColor: COLORS.inactiveBkg,
-		width: 70,
-		height: 40,
-		alignItems: "center",
-		alignSelf: "center",
 	},
 });

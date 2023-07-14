@@ -17,6 +17,10 @@ export default function Avatar({ modeAdd}) {
 }
 //TODO: pressable icon
 
+/*  import { Plus, X } from "react-native-feather";
+<Plus stroke={COLORS.accent} fill="#fff" width={20} height={20} />
+*/
+
 const styles = StyleSheet.create({
 	holder: {
 		position: "absolute",
