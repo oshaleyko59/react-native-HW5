@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
 	View,
 	Text,
@@ -20,13 +20,36 @@ import { COLORS } from "../../common/constants";
 
 export default function CreatePostsScreen({ navigation }) {
 	const [kbdStatus, setKbdStatus] = useState(false);
-	const [cameraDark, setCameraDark] = useState("true");
+	const [cameraIconDark, setCameraDark] = useState("true");
 
 	const [hasPermission, setHasPermission] = useState(null);
 	const [cameraRef, setCameraRef] = useState(null);
 	const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+	const [picture, setPicture] = useState(null);
 
-  useEffect(() => {
+	async function takePicture() {
+		if (cameraRef) {
+			const { uri } = await cameraRef.takePictureAsync();
+			setPicture(uri);
+
+			await MediaLibrary.createAssetAsync(uri); //???
+			/* let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      console.log("Permission to access location was denied");
+    }
+
+    const photoLocation = await Location.getCurrentPositionAsync({});
+
+    const coords = {
+      latitude: photoLocation.coords.latitude,
+      longitude: photoLocation.coords.longitude,
+    };
+
+    setPhotoLocation(coords); */
+		}
+	}
+
+	useEffect(() => {
 		(async () => {
 			const { status } = await Camera.requestCameraPermissionsAsync();
 			await MediaLibrary.requestPermissionsAsync();
@@ -35,27 +58,29 @@ export default function CreatePostsScreen({ navigation }) {
 		})();
 	}, []);
 
-  
 	if (hasPermission === null) {
 		return <View />;
 	}
 	if (hasPermission === false) {
 		return <Text>No access to camera</Text>;
-  }
+	}
 
 	function onPress() {
 		//TODO:
 		console.log("Pressed!");
 	}
-
+	function onPublish() {
+		//TODO:
+		console.log("Publish!");
+	}
 	return (
 		<View style={styles.container}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<KeyboardAvoidingView behavior={Platform.OS === "ios" && "padding"}>
 					{!kbdStatus && (
-						<View style={styles.photo}>
-							<CameraBtn dark={cameraDark} onPress={onPress} />
-						</View>
+							<Camera style={styles.camera} ref={setCameraRef}>
+								<CameraBtn dark={cameraIconDark} onPress={takePicture} />
+							</Camera>
 					)}
 					<Text style={styles.text}>Завантажте фото</Text>
 					<TextInput
@@ -72,7 +97,7 @@ export default function CreatePostsScreen({ navigation }) {
 			</TouchableWithoutFeedback>
 			<MainBtn title={"Опубліковати"} />
 			<View style={styles.positionTrash}>
-				<TrashBtn active={false} onPress={onPress} />
+				<TrashBtn active={false} onPress={onPublish} />
 			</View>
 		</View>
 	);
@@ -84,16 +109,6 @@ const styles = StyleSheet.create({
 		backgroundColor: COLORS.mainBkg,
 		paddingHorizontal: 16,
 		paddingTop: 28,
-	},
-	photo: {
-		width: "100%",
-		height: 240,
-		backgroundColor: COLORS.inactiveBkg,
-		borderWidth: 1,
-		borderColor: COLORS.borderGray,
-		borderRadius: 8,
-		justifyContent: "center",
-		alignItems: "center",
 	},
 
 	text: {
@@ -120,5 +135,26 @@ const styles = StyleSheet.create({
 		transform: [{ translateX: 20 }],
 		bottom: 14,
 		marginBottom: 34,
+	},
+
+	camera: {
+		width: "100%",
+		height: 200,
+		backgroundColor: COLORS.inactiveBkg,
+		borderWidth: 1,
+		borderColor: COLORS.borderGray,
+		borderRadius: 8,
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	photo: {
+		width: "100%",
+		height: 240,
+		backgroundColor: COLORS.inactiveBkg,
+		borderWidth: 1,
+		borderColor: COLORS.borderGray,
+		borderRadius: 8,
+		justifyContent: "center",
+		alignItems: "center",
 	},
 });
