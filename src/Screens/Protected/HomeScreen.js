@@ -3,9 +3,10 @@ import { StyleSheet, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import { useAuthContext } from "../../store/auth-context";
-import PostsScreen from '../Tabs/PostsScreen';
-import ProfileScreen from "../Tabs/ProfileScreen";
-import CreatePostsScreen from "../Tabs/CreatePostsScreen";
+import PostsScreen from './Tabs/PostsScreen';
+import ProfileScreen from "./Tabs/ProfileScreen";
+//import CreatePostsScreen from "./Tabs/CreatePostsScreen";
+import CreatePostScreen from "./Tabs/CreatePostScreen";
 
 import LogoutBtn from "../../components/ui/LogoutBtn";
 import BackBtn from "../../components/ui/BackBtn";
@@ -21,12 +22,19 @@ const New = () => (
 	</View>
 );
 
+
+/* FIXME: header style
+
+background: #FFF;
+box-shadow: 0px 0.5px 0px 0px rgba(0, 0, 0, 0.30);
+backdrop-filter: blur(13.591408729553223px);
+*/
 export default function HomeScreen({ navigation }) {
-  const { logout } = useAuthContext();
+	const { logout } = useAuthContext();
 
 	return (
 		<BottomTab.Navigator
-			initialRouteName="Publications"
+			initialRouteName="Posts"
 			screenOptions={{
 				headerTitleAlign: "center",
 				headerStyle: styles.header,
@@ -46,11 +54,13 @@ export default function HomeScreen({ navigation }) {
 			/>
 			<BottomTab.Screen
 				name="CreatePosts"
-				component={CreatePostsScreen}
+				component={CreatePostScreen}
 				options={{
 					title: "Створити публікацію",
 					tabBarIcon: ({ focused, size, color }) => <New />,
-					headerLeft: () => <BackBtn onPress={() => navigation.navigate("Posts")} />,
+					headerLeft: () => (
+						<BackBtn onPress={() => navigation.navigate("Posts")} />
+					),
 					tabBarStyle: { display: "none" },
 				}}
 			/>
@@ -58,14 +68,14 @@ export default function HomeScreen({ navigation }) {
 				name="Profile"
 				component={ProfileScreen}
 				options={{
-					tabBarIcon: ({ focused, size, color }) => <User/>,
+					tabBarIcon: ({ focused, size, color }) => <User />,
 					headerShown: false,
 				}}
 			/>
 		</BottomTab.Navigator>
 	);
 }
-
+/*  */
 const styles = StyleSheet.create({
 	header: {
 		height: 88,

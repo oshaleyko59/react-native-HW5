@@ -4,33 +4,34 @@ import { useAuthContext } from "../../store/auth-context";
 import UserCard from "../../components/UserCard";
 import { COLORS } from "../../common/constants"; */
 
-import React, { useState, useEffect, useRef } from "react";
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
-import { Camera } from "expo-camera";
-import * as MediaLibrary from "expo-media-library";
+//import React, { useState, useEffect, useRef } from "react";
+//import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+//import { Camera } from "expo-camera";
+//import * as MediaLibrary from "expo-media-library";
 
-export default function PostsScreen() {
-	const [hasPermission, setHasPermission] = useState(null);
+//export default function PostsScreen() {
+/* 	const [hasPermission, setHasPermission] = useState(null);
 	const [cameraRef, setCameraRef] = useState(null);
-	const [type, setType] = useState(Camera.Constants.Type.back);
+	const [type, setType] = useState(Camera.Constants.Type.back); */
 
-	useEffect(() => {
+/* 	FIXME: useEffect(() => {
 		(async () => {
 			const { status } = await Camera.requesCameratPermissionsAsync();
 			await MediaLibrary.requestPermissionsAsync();
 
 			setHasPermission(status === "granted");
 		})();
-	}, []);
+	}, []); */
 
-	if (hasPermission === null) {
+/* 	if (hasPermission === null) {
 		return <View />;
 	}
 	if (hasPermission === false) {
 		return <Text>No access to camera</Text>;
-	}
+	} */
 
-	return (
+//}
+/* return (
 		<View style={styles.container}>
 			<Camera style={styles.camera} type={type} ref={setCameraRef}>
 				<View style={styles.photoView}>
@@ -65,10 +66,35 @@ export default function PostsScreen() {
 				</View>
 			</Camera>
 		</View>
+	); */
+
+import { View, ScrollView, StyleSheet } from "react-native"; //
+import { useAuthContext } from "../../../store/auth-context";
+
+import UserCard from "../../../components/UserCard";
+import { COLORS } from "../../../common/constants";
+
+export default function PostsScreen() {
+	const { getUser } = useAuthContext();
+	const user = getUser();
+
+	return (
+		<ScrollView
+			style={{
+				flex: 1,
+				//justifyContent: "space-between",
+				backgroundColor: COLORS.mainBkg,
+			}}
+		>
+			<View>
+				<UserCard user={user} />
+			</View>
+		</ScrollView>
 	);
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({});
+/* const styles = StyleSheet.create({
 	container: { flex: 1 },
 	camera: { flex: 1 },
 	photoView: {
@@ -104,36 +130,4 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 	},
 });
-
-/*
-import { View, } from "react-native";//StyleSheet
-import { useAuthContext } from "../../store/auth-context";
-
-import UserCard from "../../components/UserCard";
-import { COLORS } from "../../common/constants";
-
-
-export default function PostsScreen() {
-		const { getUser } = useAuthContext();
-  const user = getUser();
-
-	return (
-		<View
-			style={{
-				flex: 1,
-				justifyContent: "space-between",
-				backgroundColor: COLORS.mainBkg,
-			}}
-		>
-			<View>
-				<UserCard user={user} />
-			</View>
-
-		</View>
-	);
-}
-*/
-/* const styles = StyleSheet.create({
-
-}); */
-
+ */

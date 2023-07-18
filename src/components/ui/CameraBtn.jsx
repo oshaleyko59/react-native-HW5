@@ -37,34 +37,20 @@ export default function CameraBtn({dark, onPress}) {
 	);
 }
 
-			{/*<MaterialCommunityIcons name="camera" size={24} color={COLORS.inactive} />
-			 MaterialCommunityIcons name="camera-outline" */}
 const styles = StyleSheet.create({
 	cameraBtnContainer: {
 		width: 60,
 		height: 60,
-		backgroundColor: COLORS.mainBkg,
+		backgroundColor: COLORS.mainBkg, //"transparent",
+		opacity: 0.3,
 		justifyContent: "center",
 		alignItems: "center",
 		borderRadius: 30,
-  },
-  pressed: {
+		borderWidth: 1,
+		borderColor: COLORS.borderGray,
+	},
+	pressed: {
 		opacity: 0.1,
 		backgroundColor: COLORS.accent,
 	},
-/* 	btnTrash: {
-		position: "absolute",
-		right: "50%",
-		transform: [{ translateX: 20 }],
-		bottom: 14,
-		marginBottom: 34,
-		borderRadius: 20,
-		backgroundColor: COLORS.inactiveBkg,
-		width: 70,
-		height: 40,
-		alignItems: "center",
-		alignSelf: "center",
-	}, */
-
-
 });

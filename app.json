@@ -1,7 +1,7 @@
 {
 	"expo": {
-		"name": "react-native-hw4",
-		"slug": "react-native-hw4",
+		"name": "react-native-hw5",
+		"slug": "react-native-hw5",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
@@ -21,6 +21,14 @@
 				"foregroundImage": "./assets/adaptive-icon.png",
 				"backgroundColor": "#ffffff"
 			}
-		}
-	}
+		},
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ]
+    ]
+  }
 }

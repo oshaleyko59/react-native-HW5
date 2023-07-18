@@ -1,10 +1,10 @@
 import React from "react";
 import { View,ImageBackground, Text, StyleSheet } from "react-native";
 
-import { useAuthContext } from "../../store/auth-context";
-import Avatar from "../../components/Avatar";
-import LogoutBtn from "../../components/ui/LogoutBtn";
-import { bkgImage, COLORS } from "../../common/constants";
+import { useAuthContext } from "../../../store/auth-context";
+import Avatar from "../../../components/Avatar";
+import LogoutBtn from "../../../components/ui/LogoutBtn";
+import { bkgImage, COLORS } from "../../../common/constants";
 
 export default function ProfileScreen() {
   const { logout } = useAuthContext();
