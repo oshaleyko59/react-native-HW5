@@ -1,7 +1,7 @@
 {
 	"expo": {
-		"name": "react-native-hw5",
-		"slug": "react-native-hw5",
+		"name": "react-native-hw",
+		"slug": "react-native-hw",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
@@ -26,7 +26,7 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+          "cameraPermission": "Allow react-native-hw to access your camera."
         }
       ]
     ]
