@@ -14,12 +14,11 @@ const MainStack = createStackNavigator();
 
 export function useStackNavigator() {
 	function Busy() {
-		console.log("RENDER Loading");
+	//	console.log("RENDER Loading");
 		return <Loading msg="Loading..." />;
 	}
 
 	function AuthStack() {
-		console.log("RENDER AuthStack");
 		return (
 			<MainStack.Navigator screenOptions={{ headerShown: false }}>
 				<MainStack.Screen name="Login" component={LoginScreen} />
@@ -29,7 +28,6 @@ export function useStackNavigator() {
 	}
 
 	function ProtectedStack({ onLogout }) {
-		console.log("RENDER ProtectedStack");
 		return (
 			<MainStack.Navigator
 				screenOptions={{

@@ -52,9 +52,8 @@ export default function App() {
 
 	if (!fontsLoaded) {
 		return <Loading msg="Loading..." />;
-	}
-
-	console.log("App>>");
+  }
+  
 	return (
 		<AuthContextProvider>
 			<Root />

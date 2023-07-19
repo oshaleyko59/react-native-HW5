@@ -5,7 +5,6 @@ import { Feather } from "@expo/vector-icons";
 import { useAuthContext } from "../../store/auth-context";
 import PostsScreen from './Tabs/PostsScreen';
 import ProfileScreen from "./Tabs/ProfileScreen";
-//import CreatePostsScreen from "./Tabs/CreatePostsScreen";
 import CreatePostScreen from "./Tabs/CreatePostScreen";
 
 import LogoutBtn from "../../components/ui/LogoutBtn";

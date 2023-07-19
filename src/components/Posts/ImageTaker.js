@@ -1,79 +1,69 @@
-import { useState } from "react";
-import { View, Alert, Image, Text, StyleSheet } from "react-native";
-
+import { useState, useRef, useEffect } from "react";
+import { View, Image, Text, StyleSheet } from "react-native";
 import { Camera } from "expo-camera";
 
+import Loading from "../ui/Loading";
 import CameraBtn from "../ui/CameraBtn";
-//import OutlinedBtn from "../ui/OutlinedBtn";
-import { COLORS } from "../../common/constants";
 
-export default function ImageTaker({ onTakePicture }) {
-	const [takenImage, setTakenImage] = useState();
+export default function ImageTaker({ picture, onTakePicture }) {
+	const [hasCameraPermission, setHasCameraPermission] = useState();
+	const cameraRef = useRef();
 
-	/* 	async function onTakeImage() {
-		console.log("take photo>>pressed");
-	} */
+	useEffect(() => {
+		(async () => {
+			const cameraPermission = await Camera.requestCameraPermissionsAsync();
+			setHasCameraPermission(cameraPermission.status === "granted");
+		})();
+	}, []);
 
-	/* 	const preview = takenImage ? (
-		<Image source={{ uri: takenImage }} style={styles.image} />
-	) : (
-		<Text>No image yet</Text>
-	);
- */
+	if (hasCameraPermission === undefined) {
+		return <Loading msg="Requesting permissions..." />;
+	} else if (!hasCameraPermission) {
+		return (
+			<Text>
+				Permission for camera not granted. Please change this in settings.
+			</Text>
+		);
+	}
 
+	async function takePhotoHandler() {
+		const options = {
+			quality: 0.5,
+			base64: false, //true,
+			exif: false,
+		};
+
+    const newPhoto = await cameraRef.current.takePictureAsync(options);
+		onTakePicture(newPhoto.uri);
+  }
+
+	//source={{ uri: "data:image/jpg;base64," + picture.base64 }}
 	return (
 		<View style={styles.container}>
-			<Camera style={styles.camera}>
-				<CameraBtn dark={true} onPress={onTakePicture} />
-			</Camera>
+			{picture ? (
+				<Image
+					source={{uri:picture}}
+					style={styles.camera}
+				/>
+			) : (
+				<Camera ref={cameraRef} ration="16:9" style={styles.camera}>
+					<CameraBtn dark={false} onPress={takePhotoHandler} />
+				</Camera>
+			)}
 		</View>
 	);
-
-	/* 	return (
-		<View style={styles.container}>
-			<Camera
-				style={styles.camera}
-				type={CameraType.back}
-				ration="16:9"
-			></Camera>
-			<OutlinedBtn icon="camera" onPress={onTakeImage}>
-				Take image
-			</OutlinedBtn>
-		</View>
-	); */
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		padding: 16,
 	},
 	camera: {
 		width: "100%",
 		height: 240,
-		borderRadius: 40,
+		borderRadius: 8,
 		overflow: "hidden",
 		justifyContent: "center",
 		alignItems: "center",
-	},
-	/* 	container: {
-		width: "100%",
-		height: 300,
-		marginVertical: 8,
-		justifyContent: "center",
-		alignItems: "center",
-		backgroundColor: COLORS.inactiveBkg,
-		borderRadius: 4,
-		overflow: "hidden",
-	},
-
-	camera: {
-		flex: 1,
-  }, */
-
-	image: {
-		width: "100%",
-		height: "100%",
-		resizeMode: "contain",
 	},
 });

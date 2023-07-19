@@ -1,78 +1,13 @@
-/* import { View, } from "react-native";//StyleSheet
-import { useAuthContext } from "../../store/auth-context";
-
-import UserCard from "../../components/UserCard";
-import { COLORS } from "../../common/constants"; */
-
-//import React, { useState, useEffect, useRef } from "react";
-//import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
-//import { Camera } from "expo-camera";
-//import * as MediaLibrary from "expo-media-library";
-
-//export default function PostsScreen() {
-/* 	const [hasPermission, setHasPermission] = useState(null);
-	const [cameraRef, setCameraRef] = useState(null);
-	const [type, setType] = useState(Camera.Constants.Type.back); */
-
-/* 	FIXME: useEffect(() => {
-		(async () => {
-			const { status } = await Camera.requesCameratPermissionsAsync();
-			await MediaLibrary.requestPermissionsAsync();
-
-			setHasPermission(status === "granted");
-		})();
-	}, []); */
-
-/* 	if (hasPermission === null) {
-		return <View />;
-	}
-	if (hasPermission === false) {
-		return <Text>No access to camera</Text>;
-	} */
-
-//}
-/* return (
-		<View style={styles.container}>
-			<Camera style={styles.camera} type={type} ref={setCameraRef}>
-				<View style={styles.photoView}>
-					<TouchableOpacity
-						style={styles.flipContainer}
-						onPress={() => {
-							setType(
-								type === Camera.Constants.Type.back
-									? Camera.Constants.Type.front
-									: Camera.Constants.Type.back
-							);
-						}}
-					>
-						<Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
-							{" "}
-							Flip{" "}
-						</Text>
-					</TouchableOpacity>
-					<TouchableOpacity
-						style={styles.button}
-						onPress={async () => {
-							if (cameraRef) {
-								const { uri } = await cameraRef.takePictureAsync();
-								await MediaLibrary.createAssetAsync(uri);
-							}
-						}}
-					>
-						<View style={styles.takePhotoOut}>
-							<View style={styles.takePhotoInner}></View>
-						</View>
-					</TouchableOpacity>
-				</View>
-			</Camera>
-		</View>
-	); */
-
-import { View, ScrollView, StyleSheet } from "react-native"; //
+import { View, ScrollView, FlatList, StyleSheet } from "react-native"; //
 import { useAuthContext } from "../../../store/auth-context";
 
 import UserCard from "../../../components/UserCard";
 import { COLORS } from "../../../common/constants";
+
+import dummyPosts from "../../../models/dummyPost";
+function getPosts() {
+  return dummyPosts;
+}
 
 export default function PostsScreen() {
 	const { getUser } = useAuthContext();
@@ -88,7 +23,8 @@ export default function PostsScreen() {
 		>
 			<View>
 				<UserCard user={user} />
-			</View>
+      </View>
+      <FlatList />
 		</ScrollView>
 	);
 }

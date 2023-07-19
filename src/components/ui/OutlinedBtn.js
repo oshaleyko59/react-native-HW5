@@ -1,11 +1,11 @@
 import { Pressable, Text, StyleSheet } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { COLORS } from "../../common/constants";
 
-export default function OutlinedBtn({ onPress, icon, children }) {
+export default function OutlinedBtn({ onPress, icon, color, children }) {
 	return (
     <Pressable onPress={onPress} style={(pressed)=>[styles.button, pressed && styles.pressed]}>
-      <Ionicons name={icon} size={24} color={COLORS.accent} style={styles.icon} />
+      <Feather name={icon} size={24} color={color} style={styles.icon} />
 			<Text style={styles.text}>{children}</Text>
 		</Pressable>
 	);
