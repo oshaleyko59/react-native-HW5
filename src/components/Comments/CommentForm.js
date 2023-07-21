@@ -7,7 +7,7 @@ export default function CommentForm() {
 	const [text, setText] = useState("");
 
 	function submitCommentHandler() {
-		const newComment = new Comment(text, 0, Date.now()); //authorId, dateTimeStamp
+		const newComment = new Comment(text, 0, Date.now()); 
 		console.info("Submit>>comment", newComment);
 	}
 

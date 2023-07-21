@@ -1,18 +1,18 @@
 import { StyleSheet, View, Text, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
+import formatDT from "../../helpers/datetime-format";
 import { COLORS } from "../../common/constants";
 
 import DUMMY from "../../models/dummy";
 console.log("DUMMY>>", DUMMY);
 
 function getAvatar(authorId) {
-	//TODO:
-	return Number.parseInt(authorId) < 0.5 ? DUMMY.avatar28 : DUMMY.avatar28_1;
+  //TODO:
+	return Number.parseFloat(authorId) < 0.5 ? DUMMY.avatar28 : DUMMY.avatar28_1;
 }
 
 export default function CommentCard({ authorId, text, dateTimeStamp }) {
-	console.log("CommentCard>>", authorId, text, dateTimeStamp);
+  console.log("CommentCard>>", text);
 	const ava = getAvatar(authorId);
 	return (
 		<View
@@ -26,9 +26,16 @@ export default function CommentCard({ authorId, text, dateTimeStamp }) {
 			<View style={styles.avatar}>
 				<Image source={ava} />
 			</View>
-			<View style={styles.contentContainer}>
+			<View
+				style={[
+					styles.contentContainer,
+					ava === DUMMY.avatar28
+						? { borderTopLeftRadius: 0 }
+						: { borderTopRightRadius: 0 },
+				]}
+			>
 				<Text style={styles.text}>{text}</Text>
-				<Text style={styles.date}>{dateTimeStamp.toString()}</Text>
+				<Text style={styles.date}>{formatDT(dateTimeStamp)}</Text>
 			</View>
 		</View>
 	);
@@ -47,8 +54,11 @@ const styles = StyleSheet.create({
 		borderRadius: 14,
 		overflow: "hidden",
 	},
-	contentContainer: {
-		padding: 16,
+  contentContainer: {
+    flex:1,
+    padding: 16,
+    backgroundColor: COLORS.Gray01,
+    borderRadius: 6,
 	},
 	text: {
 		fontSize: 13,

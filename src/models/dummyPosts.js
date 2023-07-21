@@ -9,7 +9,7 @@ const dummyGallery = [
 	require("./dummyImgs/IMG4.jpg"),
 	require("./dummyImgs/IMG5.jpg"),
 	require("./dummyImgs/IMG6.jpg"),
-	require("./dummyImgs/IMG7.jpg"),
+  require("./dummyImgs/IMG7.jpg"),
 ];
 
 const lorem = new LoremIpsum({
@@ -30,10 +30,11 @@ const dummyPosts = [];
     dummyPosts[i] = new Post(lorem.generateWords(1), lorem.generateWords(2), location, dummyGallery[i]);
     }
     for (i = 0; i < 5; i = i + 1){
-      dummyPosts[0].comments[i] = new Comment(lorem.generateSentences(1), Math.random().toString(), Date.now()-Math.floor(Math.random()*1000000000));
+      let date = new Date(Date.UTC(2023, 6, 12, 11+i, 1, 59));
+
+      dummyPosts[0].comments[i] = new Comment(lorem.generateSentences(1), Math.random().toString(), date);
     }
 })();
 
-console.log("dummyPosts>>", dummyPosts);
 console.log("dummyPosts[0]>>", dummyPosts[0].comments.length);
 export default dummyPosts;
