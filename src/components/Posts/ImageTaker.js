@@ -55,7 +55,6 @@ export default function ImageTaker({ picture, onTakePicture }) {
 
 const styles = StyleSheet.create({
 	container: {
-	//	flex: 1,
 	},
 	camera: {
 		width: "100%",

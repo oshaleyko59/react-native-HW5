@@ -2,11 +2,10 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 
 import { COLORS } from "../../common/constants";
 import CommentCard  from "./CommentCard";
-import formatDT from "../../helpers/datetime-format";
 
 export default function CommentsList({ comments }) {
 
-	if (!comments || (comments.length === 0)) { //TODO: no need
+	if (!comments || (comments.length === 0)) { //TODO: remove, no need
 		return (
 			<View style={styles.fallbackContainer}>
 				<Text style={styles.fallbackText}>

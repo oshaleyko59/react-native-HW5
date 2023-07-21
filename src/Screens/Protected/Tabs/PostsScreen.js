@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native"; //
+import { View, StyleSheet } from "react-native";
 import { useAuthContext } from "../../../store/auth-context";
 
 import UserCard from "../../../components/UserCard";

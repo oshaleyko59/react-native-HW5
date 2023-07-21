@@ -1,6 +1,6 @@
 import React from "react";
 import { useRoute } from "@react-navigation/native";
-import { View, StyleSheet, Image, KeyboardAvoidingView, ScrollView } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import CommentsList from "../../components/Comments/CommentsList";
 import CommentForm from "../../components/Comments/CommentForm";
 import { COLORS } from "../../common/constants";
@@ -22,7 +22,7 @@ export default function CommentsScreen() {
 		</>
 	);
 }
-//TODO: KeyboardAvoidingView
+//TODO: KeyboardAvoidingView ???
 const styles = StyleSheet.create({
 	container: {
 		paddingTop: 32,

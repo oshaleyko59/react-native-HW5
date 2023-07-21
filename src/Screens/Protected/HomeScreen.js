@@ -80,7 +80,7 @@ export default function HomeScreen({ navigation }) {
 		</BottomTab.Navigator>
 	);
 }
-/*  */
+
 const styles = StyleSheet.create({
 	header: {
 		height: 88,
