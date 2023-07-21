@@ -12,14 +12,15 @@ export default function PostCard({ id,
 	comments,
 }) {
   const navigation = useNavigation();
-
+//
 	function commentsPressHandler() {
-		console.log("Comments pressed!>>id", id);
-		navigation.navigate("Comments");
+		console.log("Comments pressed!>>comments", comments);
+		navigation.navigate("Comments", { pictureUri, comments});
 	}
 
 	function locationPressHandler() {
-		console.log("location pressed!>>", location);
+    console.log("location pressed!>>", location);
+    navigation.navigate("Map", { location });
 	}
 
 	return (
@@ -105,21 +106,4 @@ const styles = StyleSheet.create({
 		textDecorationStyle: "solid",
 		textDecorationLine: "underline",
 	},
-
-	/* 	text: {
-		fontSize: 16,
-		lineHeight: 19,
-		color: COLORS.mainText,
-		fontFamily: "Roboto-Medium",
-	},
-	underlined: {
-		textDecorationStyle: "solid",
-		textDecorationLine: "underline",
-	},
-	colorInactive: {
-		color: COLORS.inactive,
-	},
-	colorMain: {
-		color: COLORS.mainText,
-	}, */
 });

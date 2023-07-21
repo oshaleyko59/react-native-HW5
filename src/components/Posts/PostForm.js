@@ -77,7 +77,7 @@ export default function PostForm() {
 		console.info("Publish>>post", newPostReady, newPost); //TODO: upload
 
 		clearPost();
-		navigation.navigate("Posts");
+		navigation.navigate("Home");
 	}
 
 	async function takePictureHandler(uri) {
