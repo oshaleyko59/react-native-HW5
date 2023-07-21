@@ -11,8 +11,8 @@ function getAvatar(authorId) {
 	return Number.parseFloat(authorId) < 0.5 ? DUMMY.avatar28 : DUMMY.avatar28_1;
 }
 
-export default function CommentCard({ authorId, text, dateTimeStamp }) {
-  console.log("CommentCard>>", text);
+export default function CommentCard({ authorId, text, dtStamp }) {
+	console.log("CommentCard>>", text);
 	const ava = getAvatar(authorId);
 	return (
 		<View
@@ -35,7 +35,7 @@ export default function CommentCard({ authorId, text, dateTimeStamp }) {
 				]}
 			>
 				<Text style={styles.text}>{text}</Text>
-				<Text style={styles.date}>{formatDT(dateTimeStamp)}</Text>
+				<Text style={styles.date}>{formatDT(dtStamp)}</Text>
 			</View>
 		</View>
 	);

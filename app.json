@@ -13,7 +13,8 @@
 		},
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
-			"supportsTablet": false
+			"supportsTablet": false,
+      "config":{"googleMapsApiKey":"ios.config.googleMapsApiKey"}
 		},
 		"android": {
 			"softwareKeyboardLayoutMode": "pan",

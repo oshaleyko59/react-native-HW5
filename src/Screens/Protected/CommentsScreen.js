@@ -1,14 +1,15 @@
 import React from "react";
 import { useRoute } from "@react-navigation/native";
-import { View, StyleSheet, Image, KeyboardAvoidingView } from "react-native";
+import { View, StyleSheet, Image, KeyboardAvoidingView, ScrollView } from "react-native";
 import CommentsList from "../../components/Comments/CommentsList";
 import CommentForm from "../../components/Comments/CommentForm";
 import { COLORS } from "../../common/constants";
 
 export default function CommentsScreen() {
-	const route = useRoute(); //text, authorId, dateTimeStamp
+	const route = useRoute(); //text, authorId, dtStamp
 	const { pictureUri, comments } = route.params;
 	console.log("CommentsScreen>>comments", route.params.comments.length);
+
 	return (
 		<>
 			<View style={styles.container}>

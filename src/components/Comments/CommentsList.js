@@ -2,6 +2,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 
 import { COLORS } from "../../common/constants";
 import CommentCard  from "./CommentCard";
+import formatDT from "../../helpers/datetime-format";
 
 export default function CommentsList({ comments }) {
 

@@ -1,8 +1,8 @@
 export default class Comment {
-	constructor(text, authorId, dateTimeStamp) {
+	constructor(text, authorId, dtStamp) {
 		this.text = text;
 		this.authorId = authorId;
-		this.dateTimeStamp = dateTimeStamp;
+		this.dtStamp = dtStamp;
 		this.id = Math.random().toString(); //FIXME: add now
 	}
 }

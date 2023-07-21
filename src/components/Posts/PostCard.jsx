@@ -20,7 +20,7 @@ export default function PostCard({ id,
 
 	function locationPressHandler() {
     console.log("location pressed!>>", location);
-    navigation.navigate("Map", { location });
+    navigation.navigate("Map", { location, title });
 	}
 
 	return (
