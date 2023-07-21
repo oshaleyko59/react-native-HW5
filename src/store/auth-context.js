@@ -54,7 +54,7 @@ export default function AuthContextProvider({ children }) {
 			credentials.password = "";
 			setUser(credentials);
 			await AsyncStorage.setItem("user", JSON.stringify(credentials));
-			//console.debug(`authenticate>>user ${JSON.stringify(credentials)} done`);
+
 			return credentials;
 		} catch (e) {
 			setUser(null);
@@ -66,7 +66,6 @@ export default function AuthContextProvider({ children }) {
 		setUser(null);
 		try {
 			await AsyncStorage.removeItem("user");
-		//	console.debug(`logout>> done`);
 		} catch (e) {
 			console.error(e.message);
 		}
@@ -78,12 +77,6 @@ export default function AuthContextProvider({ children }) {
 		logout,
 		getUser,
 	};
-
-/* 	console.debug(
-		`AuthContextProvider>>user=${value.user} isAuthenticated=${
-			value.isAuthenticated
-		}(!!user=${!!value.user})`
-	); */
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

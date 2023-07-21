@@ -22,17 +22,14 @@ const lorem = new LoremIpsum({
   }
 });
 
-
-console.log('dummyGallery>>', dummyGallery);
-
 const dummyPosts = [];
-const createDummyPosts = () => {
+  (() => {
   for (i = 0; i < dummyGallery.length; i = i + 1) {
     const location = { lat: 37 + Math.random(), lon: -120 + Math.random() };
     dummyPosts[i] = new Post(lorem.generateWords(1), lorem.generateWords(2), location, dummyGallery[i]);
   }
-};
-createDummyPosts();
+})();
+
 console.log("dummyPosts>>", dummyPosts);
 
 export default dummyPosts;

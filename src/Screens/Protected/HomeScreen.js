@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import { useAuthContext } from "../../store/auth-context";
-import PostsScreen from './Tabs/PostsScreen';
+import PostsScreen from "./Tabs/PostsScreen";
 import ProfileScreen from "./Tabs/ProfileScreen";
 import CreatePostScreen from "./Tabs/CreatePostScreen";
 
@@ -13,14 +13,13 @@ import { COLORS } from "../../common/constants";
 
 const BottomTab = createBottomTabNavigator();
 
-const Grid = () => <Feather name="grid" size={24} color={COLORS.icon} />;
+const Grid = (color) => <Feather name="grid" size={24} color={color} />;
 const User = () => <Feather name="user" size={24} color={COLORS.icon} />;
 const New = () => (
 	<View style={styles.newBtn}>
 		<Feather name="plus" size={24} color={COLORS.secondaryText} />
 	</View>
 );
-
 
 /* FIXME: header style
 
@@ -37,6 +36,7 @@ export default function HomeScreen({ navigation }) {
 			screenOptions={{
 				headerTitleAlign: "center",
 				headerStyle: styles.header,
+				headerTitleStyle: styles.headerTitle,
 				tabBarShowLabel: false,
 				tabBarStyle: styles.tabBar,
 				headerTitleStyle: styles.headerTitle,
@@ -48,7 +48,11 @@ export default function HomeScreen({ navigation }) {
 				options={{
 					title: "Публікації",
 					tabBarIcon: ({ focused, size, color }) => <Grid />,
-					headerRight: () => <LogoutBtn onPress={logout} />,
+					headerRight: () => (
+						<View style={{ marginRight: 16 }}>
+							<LogoutBtn onPress={logout} />
+						</View>
+					),
 				}}
 			/>
 			<BottomTab.Screen
@@ -58,7 +62,9 @@ export default function HomeScreen({ navigation }) {
 					title: "Створити публікацію",
 					tabBarIcon: ({ focused, size, color }) => <New />,
 					headerLeft: () => (
-						<BackBtn onPress={() => navigation.navigate("Posts")} />
+						<View style={{ marginLeft: 16 }}>
+							<BackBtn onPress={() => navigation.navigate("Posts")} />
+						</View>
 					),
 					tabBarStyle: { display: "none" },
 				}}
@@ -81,7 +87,13 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		borderBottomColor: COLORS.inactive,
 	},
-
+	headerTitle: {
+		//FIXME: for Android bottomPadding is incorrecy
+		color: COLORS.mainText,
+		fontFamily: "Roboto-Medium",
+		fontSize: 17,
+		lineHeight: 22,
+	},
 	tabBar: {
 		justifyContent: "center",
 		alignItems: "center",
@@ -89,8 +101,8 @@ const styles = StyleSheet.create({
 		borderTopWidth: 1,
 		borderTopColor: COLORS.inactive,
 	},
-  newBtn: {
-    flexShrink:0,
+	newBtn: {
+		flexShrink: 0,
 		alignItems: "center",
 		justifyContent: "center",
 		backgroundColor: COLORS.accent,
@@ -99,4 +111,3 @@ const styles = StyleSheet.create({
 		borderRadius: 20,
 	},
 });
-

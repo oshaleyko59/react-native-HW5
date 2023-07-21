@@ -46,7 +46,7 @@ export default function PostForm() {
 	async function verifyLocationPermissions() {
 		if (locationPermission.status === PermissionStatus.GRANTED) {
 			return true;
-    }
+		}
 
 		// PermissionStatus.UNDETERMINED ||	 PermissionStatus.DENIED
 		const permissionResponse = await requestPermission();
@@ -62,20 +62,21 @@ export default function PostForm() {
 	}
 
 	async function publishHandler() {
+		//FIXME: to enable Publish only after location is resolved
 		const newPostReady = !!title && !!place && !!location && !!picture;
 		if (!newPostReady) {
 			Alert.alert(
 				"New post not completed!",
 				" Pls take picture and fill in required fields, then press Publish, or discard the post"
-      );
-      return;
-    }
+			);
+			return;
+		}
 
-    const newPost = { title, place, location, picture, comments:[]};
+		const newPost = { title, place, location, picture, comments: [] };
 
-    console.info("Publish>>post", newPostReady, newPost); //TODO: upload
+		console.info("Publish>>post", newPostReady, newPost); //TODO: upload
 
-    clearPost();
+		clearPost();
 		navigation.navigate("Posts");
 	}
 
@@ -84,7 +85,7 @@ export default function PostForm() {
 		const hasPermission = await verifyLocationPermissions();
 
 		if (!hasPermission) {
-			setLocation({ lat: 999, lng: 999 }); //location denied
+			setLocation({ lat: 999, lng: 999 }); //location denied TODO:
 		} else {
 			const location = await getCurrentPositionAsync();
 			setLocation({
@@ -97,34 +98,44 @@ export default function PostForm() {
 	//TODO: is Upload photo a button? Nothing about it in Tech specs...
 
 	return (
-		<ScrollView style={styles.form}>
+		<ScrollView
+			style={styles.form}
+			contentContainerStyle={styles.contentContainer}
+		>
 			<View style={styles.container}>
-				<ImageTaker picture={picture} onTakePicture={takePictureHandler} />
-				<Text style={styles.text}>Завантажте фото</Text>
-				<TextInput
-					value={title}
-					placeholder="Назва..."
-					placeholderTextColor={COLORS.inactive}
-					style={[styles.input, { marginTop: 32 }]}
-					onChangeText={(value) => setTitle(value)}
-        />
-        <View style={styles.inputContainer}>
-				<Feather
-					name="map-pin"
-					size={24}
-					color={COLORS.inactive}
-					style={styles.icon}
-				/>
-				<TextInput
-					value={place}
-					placeholder="Місцевість..."
-					placeholderTextColor={COLORS.inactive}
-					style={[styles.input, { marginBottom: 32 }]}
-					onChangeText={(value) => setPlace(value)}
-				/></View>
-			</View>
-			<View style={styles.controlsContainer}>
-				<MainBtn title={"Опубліковати"} onPress={publishHandler} />
+				<View style={styles.controlsContainer}>
+					<ImageTaker picture={picture} onTakePicture={takePictureHandler} />
+					<View style={styles.textContainer}>
+						<Text style={styles.text}>Завантажте фото</Text>
+					</View>
+					<View style={styles.inputContainer}>
+						<TextInput
+							value={title}
+							placeholder="Назва..."
+							placeholderTextColor={COLORS.inactive}
+							style={styles.input}
+							onChangeText={(value) => setTitle(value)}
+						/>
+					</View>
+					<View style={styles.inputContainer}>
+						<Feather
+							name="map-pin"
+							size={24}
+							color={COLORS.inactive}
+							style={styles.icon}
+						/>
+						<TextInput
+							value={place}
+							placeholder="Місцевість..."
+							placeholderTextColor={COLORS.inactive}
+							style={styles.input}
+							onChangeText={(value) => setPlace(value)}
+						/>
+					</View>
+					<View style={styles.mainBtnContainer}>
+						<MainBtn title={"Опубліковати"} onPress={publishHandler} />
+					</View>
+				</View>
 				<TrashBtn style={styles.positionTrash} onPress={toTrashHandler} />
 			</View>
 		</ScrollView>
@@ -134,44 +145,44 @@ export default function PostForm() {
 const styles = StyleSheet.create({
 	form: {
 		flex: 1,
-		backgroundColor: COLORS.mainBkg,
+	},
+	contentContainer: {
+		flex: 1,
 		paddingHorizontal: 16,
 		paddingTop: 32,
 		paddingBottom: 34,
+		backgroundColor: COLORS.mainBkg,
+	},
+	textContainer: { marginTop: 8, marginBottom: 32 },
+	container: { flex: 1 },
+	controlsContainer: {
+		flex: 1,
+	},
+	inputContainer: {
+		marginBottom: 16,
+		flexDirection: "row",
+		alignItems: "center",
+		borderBottomWidth: 1,
+		borderBottomColor: COLORS.borderGray,
+	},
+	mainBtnContainer: {
+		marginTop: 16,
 	},
 	text: {
-		marginTop: 8,
 		fontSize: 16,
 		fontFamily: "Roboto-Regular",
 		color: COLORS.inactive,
 		lineHeight: 19,
 	},
 	input: {
-		marginTop: 16,
 		width: "100%",
 		height: 50,
-		borderBottomWidth: 1,
-		borderBottomColor: COLORS.borderGray,
-	},
-	container: { flex: 1 },
-	controlsContainer: {
-		flex: 2,
-		justifyContent: "flex-end",
-	},
-  inputContainer: {
-    flex:1,
-		flexDirection: "row",
-		borderBottomWidth: 1,
-		borderBottomColor: COLORS.borderGray,
+		fontSize: 16,
+		fontFamily: "Roboto-Regular",
+		color: COLORS.mainText,
 	},
 	icon: { marginRight: 4 },
-
 	positionTrash: {
-		/* 		position: "absolute",
-		right: "50%",
-		transform: [{ translateX: 20 }],
-		bottom: 14, */
 		alignSelf: "center",
-		marginBottom: 34,
 	},
 });

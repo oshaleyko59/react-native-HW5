@@ -1,5 +1,5 @@
-export const bkgImage = require("../assets/images/PhotoBG.png"); ;
-
+export const bkgImage = require("../assets/images/PhotoBG.png");
+console.log("bkgImage>>", bkgImage);
 export const COLORS = {
 	mainText: "#212121",
 	mainGrey: "#212121CC",

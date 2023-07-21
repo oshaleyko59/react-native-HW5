@@ -4,6 +4,7 @@ import { COLORS } from "../../common/constants";
 import PostCard from "./PostCard";
 
 function PostsList({ posts }) {
+	
 	if (!posts || posts.length === 0) {
 		return (
 			<View style={styles.fallbackContainer}>
@@ -15,15 +16,22 @@ function PostsList({ posts }) {
 	}
 
 	return (
-		<FlatList
-			data={posts}
-			keyExtractor={(item) => item.id}
-			renderItem={({ item }) => <PostCard post={item} />}
-		/>
+		<View
+			style={{
+				flex: 1,
+				backgroundColor: COLORS.mainBkg,
+			}}
+		>
+			<FlatList
+				data={posts}
+				keyExtractor={(item) => item.id}
+				renderItem={(itemData) => <PostCard {...itemData.item} />}
+			/>
+		</View>
 	);
 }
 
-export default PlacesList;
+export default PostsList;
 
 const styles = StyleSheet.create({
 	fallbackContainer: {

@@ -6,6 +6,6 @@ export default class Post {
 		this.location = location; // { lat: 0.141241, lng: 127.121 }
     this.comments = [];
     this.likes = [];
-		this.id = new Date().toString() + Math.random().toString();
+		this.id = Math.random().toString(); //FIXME: add now
 	}
 }

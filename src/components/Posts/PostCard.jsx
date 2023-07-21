@@ -1,11 +1,21 @@
 import { StyleSheet, View, Text, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import { COLORS } from "../../common/constants";
 import IconButton from "../ui/IconButton";
 
-export default function PostCard(post) {
-  const { title, place, location, pictureUri, comments } = post;
-  function commentsPressHandler() {
-		console.log("Comments pressed!");
+export default function PostCard({ id,
+	title,
+	place,
+	location,
+	pictureUri,
+	comments,
+}) {
+  const navigation = useNavigation();
+
+	function commentsPressHandler() {
+		console.log("Comments pressed!>>id", id);
+		navigation.navigate("Comments");
 	}
 
 	function locationPressHandler() {
@@ -15,26 +25,36 @@ export default function PostCard(post) {
 	return (
 		<View style={styles.container}>
 			<View style={styles.imgContainer}>
-				<Image source={{ pictureUri }} style={styles.img} />
+				<Image source={pictureUri} style={styles.img} />
 			</View>
-			<Text style={[styles.text, styles.colorMain]}>{title}</Text>
+			<View style={styles.titleContainer}>
+				<Text style={styles.titleStyle}>{title}</Text>
+			</View>
 			<View style={styles.btnsContainer}>
 				<View style={styles.btnContainer}>
 					<IconButton
 						icon={"message-circle"}
 						size={24}
-						color={COLORS.icon}
+						color={COLORS.inactive}
 						onPress={commentsPressHandler}
 					/>
-					<Text style={[styles.text, styles.colorInactive]}>
-						{comments.length}
+					<Text
+						style={[
+							styles.commentsStyle,
+							comments?.length && { color: COLORS.mainText },
+						]}
+					>
+						{comments?.length}
 					</Text>
 				</View>
 				<View style={styles.btnContainer}>
-					<IconButton icon={"map-pin"} size={24} color={COLORS.icon} onPress={locationPressHandler} />
-					<Text style={[styles.text, styles.colorMain, styles.underlined]}>
-						{place}
-					</Text>
+					<IconButton
+						icon={"map-pin"}
+						size={24}
+						color={COLORS.inactive}
+						onPress={locationPressHandler}
+					/>
+					<Text style={styles.placeStyle}>{place}</Text>
 				</View>
 			</View>
 		</View>
@@ -45,19 +65,48 @@ const styles = StyleSheet.create({
 	container: {
 		width: "100%",
 		height: 299,
-		gap: 8,
+		flexShrink: 0,
+		marginBottom: 32,
 	},
 	imgContainer: {
 		width: "100%",
 		height: 240,
+		marginBottom: 8,
 		borderRadius: 8,
 		overflow: "hidden",
-		backgroundColor: "green", //TODO:
+		backgroundColor: "lightblue", //TODO:
 	},
-	img: {},
-	btnContainer: { flexDirection: "row", gap: 6 },
-	btnsContainer: { flexDirection: "row", justifyContent: "space-between" },
-	text: {
+	titleContainer: { marginBottom: 8 },
+	btnsContainer: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
+	btnContainer: { flexDirection: "row", alignItems: "center" },
+
+	img: { width: "100%", height: 240 },
+	titleStyle: {
+		fontSize: 16,
+		lineHeight: 19,
+		color: COLORS.mainText,
+		fontFamily: "Roboto-Medium",
+	},
+	commentsStyle: {
+		fontSize: 16,
+		lineHeight: 19,
+		color: COLORS.inactive,
+		fontFamily: "Roboto-Medium",
+	},
+	placeStyle: {
+		marginLeft: 6,
+		fontSize: 16,
+		lineHeight: 19,
+		color: COLORS.mainText,
+		fontFamily: "Roboto-Medium",
+		textDecorationStyle: "solid",
+		textDecorationLine: "underline",
+	},
+
+	/* 	text: {
 		fontSize: 16,
 		lineHeight: 19,
 		color: COLORS.mainText,
@@ -72,5 +121,5 @@ const styles = StyleSheet.create({
 	},
 	colorMain: {
 		color: COLORS.mainText,
-	},
+	}, */
 });

@@ -1,7 +1,8 @@
-import { View, ScrollView, FlatList, StyleSheet } from "react-native"; //
+import { View, ScrollView, StyleSheet } from "react-native"; //
 import { useAuthContext } from "../../../store/auth-context";
 
 import UserCard from "../../../components/UserCard";
+import PostsList from "../../../components/Posts/PostsList";
 import { COLORS } from "../../../common/constants";
 
 import dummyPosts from "../../../models/dummyPost";
@@ -14,22 +15,24 @@ export default function PostsScreen() {
 	const user = getUser();
 
 	return (
-		<ScrollView
-			style={{
+		<View
+      style={{
+        paddingHorizontal:16,
 				flex: 1,
-				//justifyContent: "space-between",
 				backgroundColor: COLORS.mainBkg,
 			}}
 		>
 			<View>
 				<UserCard user={user} />
-      </View>
-      <FlatList />
-		</ScrollView>
+			</View>
+			<PostsList posts={dummyPosts} />
+		</View>
 	);
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+
+});
 /* const styles = StyleSheet.create({
 	container: { flex: 1 },
 	camera: { flex: 1 },

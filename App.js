@@ -21,13 +21,9 @@ function Root() {
 
 				if (!storedUser) {
 					return null;
-				}
-				const res = await authenticate(JSON.parse(storedUser));
-/* 				console.debug(
-					`fetchUser>>storedUser=${JSON.stringify(
-						res
-					)} isAuthenticated=${isAuthenticated}`
-				); */
+        }
+        const user = JSON.parse(storedUser);
+				authenticate(user);
 			} catch (e) {
 				console.error("fetchUser>> ERROR", e.message);
 			} finally {
@@ -53,7 +49,7 @@ export default function App() {
 	if (!fontsLoaded) {
 		return <Loading msg="Loading..." />;
   }
-  
+
 	return (
 		<AuthContextProvider>
 			<Root />

@@ -13,7 +13,7 @@ function LoginScreen() {
   async function loginHandler({ email, password }) {
     setIsBusy(true);
     try {
-      await authenticate({ email, password });
+      authenticate({ email, password });
     } catch (error) {
       console.error('error', error);
       Alert.alert(

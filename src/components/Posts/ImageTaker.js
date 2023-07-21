@@ -34,10 +34,9 @@ export default function ImageTaker({ picture, onTakePicture }) {
 		};
 
     const newPhoto = await cameraRef.current.takePictureAsync(options);
-		onTakePicture(newPhoto.uri);
+		await onTakePicture(newPhoto.uri);
   }
 
-	//source={{ uri: "data:image/jpg;base64," + picture.base64 }}
 	return (
 		<View style={styles.container}>
 			{picture ? (
@@ -56,7 +55,7 @@ export default function ImageTaker({ picture, onTakePicture }) {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+	//	flex: 1,
 	},
 	camera: {
 		width: "100%",

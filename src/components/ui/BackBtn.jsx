@@ -7,14 +7,8 @@ export default function BackBtn({onPress}) {
 			icon="arrow-left"
 			color={COLORS.icon}
 			size={24}
-			onPress={onPress}
+      onPress={onPress}
 		/>
 	);
 }
-/*
-						<Pressable
-							onPress={() => navigation.navigate("Публикации")}
-							style={{ marginLeft: 16 }}
-						>
-							<Feather name="arrow-left" size={24} color={COLORS.icon} />
-						</Pressable> */
+

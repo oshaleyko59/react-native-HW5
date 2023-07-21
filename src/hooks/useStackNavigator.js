@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useAuthContext } from "../store/auth-context";
 import LoginScreen from "../Screens/Auth/LoginScreen";
@@ -14,7 +14,7 @@ const MainStack = createStackNavigator();
 
 export function useStackNavigator() {
 	function Busy() {
-	//	console.log("RENDER Loading");
+		//	console.log("RENDER Loading");
 		return <Loading msg="Loading..." />;
 	}
 
@@ -34,7 +34,11 @@ export function useStackNavigator() {
 					headerTitleAlign: "center",
 					headerStyle: styles.header,
 					headerTitleStyle: styles.headerTitle,
-					headerRight: () => <LogoutBtn onPress={onLogout} />,
+					headerRight: () => (
+						<View style={{ marginRight: 16 }}>
+							<LogoutBtn onPress={onLogout} />
+						</View>
+					),
 				}}
 			>
 				<MainStack.Screen
